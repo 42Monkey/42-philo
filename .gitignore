@@ -1,0 +1,41 @@
+# Project specific executables
+philo/philo
+philo_bonus/philo_bonus
+
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+
+# Debug files
+*.dSYM/
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Temp files
+*.swp
+*.swo
+*~
+
+# Test files
+test/
+*.test
+
+# Build directory
+build/
+obj/
+
+# Dependencies
+*.d
+
+# Log files
+*.log
