@@ -39,3 +39,6 @@ obj/
 
 # Log files
 *.log
+
+# Doc files
+.pdf
