@@ -1,6 +1,7 @@
 # Project specific executables
 philo/philo
 philo_bonus/philo_bonus
+examples/
 
 # Object files
 *.o
@@ -11,11 +12,6 @@ philo_bonus/philo_bonus
 
 # Debug files
 *.dSYM/
-
-# macOS specific
-.DS_Store
-.AppleDouble
-.LSOverride
 
 # VSCode
 .vscode/
