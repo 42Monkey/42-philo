@@ -16,7 +16,9 @@ RM			= rm -rf
 
 ################################################################################
 ## SOURCES
-SRCS 		=		*.c ## REMOVE WILDCARD BEFORE SUBMIT
+SRCS 		=		$(DIR_SRC)philo.c \
+					$(DIR_SRC)initializer.c \
+					$(DIR_SRC)utils.c
 
 OBJS		=		$(SRCS:.c=.o)
 

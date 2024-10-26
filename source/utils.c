@@ -1,9 +1,10 @@
 #include "../include/philo.h"
 
-size_t	ft_strlen(const char *str)
+size_t	philo_strlen(const char *str)
 {
 	size_t	i;
 
+	i = 0;
 	while (str[i] != '\0')
 	{
 		i++;
@@ -11,7 +12,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	philo_putstr_fd(char *s, int fd)
 {
 	int	i;
 
@@ -23,31 +24,31 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void	ft_putchar_fd(char c, int fd)
+void	philo_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void	philo_putnbr_fd(int n, int fd)
 {
 	if (n == -2147483648)
 	{
-		ft_putstr_fd("-2147483648", fd);
+		philo_putstr_fd("-2147483648", fd);
 		return ;
 	}
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
+		philo_putchar_fd('-', fd);
 		n = -n;
 	}
 	if (n >= 10)
 	{
-		ft_putnbr_fd(n / 10, fd);
+		philo_putnbr_fd(n / 10, fd);
 	}
-	ft_putchar_fd(n % 10 + '0', fd);
+	philo_putchar_fd(n % 10 + '0', fd);
 }
 
-int	ft_atoi(const char *nptr)
+int	philo_atoi(const char *nptr)
 {
 	int	i;
 	int	sign;
