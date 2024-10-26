@@ -61,8 +61,13 @@ typedef struct s_data
 }	t_data;
 
 // parser
-int		philo_args(int argc, char **argv);
-int		philo_init(int argc, char **argv, t_data *simulation);
+int		philo_parser(int argc, char **argv);
+
+// initializer
+int		init_param(int argc, char **argv, t_data *simulation);
+int		init_mutexes(t_data *simulation);
+int		init_philosophers(t_data *simulation);
+int		init_simulation(t_data *simulation);
 
 void	philo_error(t_data *simulation, char *message);
 

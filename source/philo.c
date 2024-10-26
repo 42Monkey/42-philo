@@ -4,8 +4,9 @@ int	main(int argc, char **argv)
 {
 	t_data	simulation;
 
-	philo_args(argc, argv);
-	philo_init(argc, argv, &simulation);
+	philo_parser(argc, argv);
+	init_param(argc, argv, &simulation);
+	init_simulation(&simulation);
 }
 
 void	philo_error(t_data *simulation, char *message)

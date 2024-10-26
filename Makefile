@@ -17,6 +17,7 @@ RM			= rm -rf
 ################################################################################
 ## SOURCES
 SRCS 		=		$(DIR_SRC)philo.c \
+					$(DIR_SRC)parser.c \
 					$(DIR_SRC)initializer.c \
 					$(DIR_SRC)utils.c
 
