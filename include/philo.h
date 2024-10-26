@@ -21,7 +21,7 @@
 # define ERROR_DIGIT "Error: All arguments must be positive integers.\n"
 # define ERROR_N_PHILO "Error: The number of philosophers must be greater than 0.\n"
 # define ERROR_NEGATIVE "Error: Negative values are not allowed for any arguments.\n"
-
+# define ERROR_MALLOC "Error: Memory Allocation Failed\n"
 # define ERROR_MUTEX "Error: Failed to initialize mutex for philosopher %d\n"
 
 /*
@@ -42,7 +42,7 @@ typedef struct s_philo
 }	t_philo;
 
 /*
- * t_simulation
+ * t_data
  * main simulation structure containing shared data
  * holds simulation parameters, synchronization primitives
  * and arrays of philosophers and forks
@@ -58,7 +58,8 @@ typedef struct s_data
 	int						running;
 	long long				ms_start;
 	pthread_mutex_t			*forks;
-	pthread_mutex_t			print_mutex;
+	pthread_mutex_t			mutex_print;
+	pthread_mutex_t			mutex_death;
 	t_philo					*philosophers;
 }	t_data;
 
@@ -68,8 +69,8 @@ int		philo_parser(int argc, char **argv);
 // initializer
 int		init_param(int argc, char **argv, t_data *simulation);
 int		init_mutexes(t_data *simulation);
-int		init_philosophers(t_data *simulation);
-int		init_simulation(t_data *simulation);
+// int		init_philosophers(t_data *simulation);
+// int		init_simulation(t_data *simulation);
 
 void	philo_error(t_data *simulation, char *message);
 
