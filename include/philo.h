@@ -22,6 +22,8 @@
 # define ERROR_N_PHILO "Error: The number of philosophers must be greater than 0.\n"
 # define ERROR_NEGATIVE "Error: Negative values are not allowed for any arguments.\n"
 
+# define ERROR_MUTEX "Error: Failed to initialize mutex for philosopher %d\n"
+
 /*
  * t_philo
  * represents a single philosopher in the simulation
