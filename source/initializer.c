@@ -13,9 +13,22 @@ int	init_param(int argc, char **argv, t_data *simulation)
 	return (0);
 }
 
+/*
+ * Initializes all mutexes in the simulation.
+ * Mutexes for each philosopher's fork
+ * 
+ * mutex_print? mutex_death?
+ */
 int	init_mutexes(t_data *simulation)
 {
+	int	i;
 
+	while (i < simulation->number_of_philosophers)
+	{
+		if (!pthread_mutex_init(&simulation->forks[i], NULL))
+			philo_error(simulation, ERROR_MUTEX);
+		i++;
+	}
 }
 
 int	init_philosophers(t_data *simulation)
