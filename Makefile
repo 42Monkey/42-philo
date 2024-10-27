@@ -10,7 +10,7 @@ DIR_SRC		= ./source/
 ################################################################################
 ## COMPILATION & FLAGS
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -Wunreachable-code -pthread
+CFLAGS		= -Wall -Wextra -Werror -Wunreachable-code -pthread -g -O0
 AR 			= ar rcs
 RM			= rm -rf
 
