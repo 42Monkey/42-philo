@@ -52,30 +52,33 @@ typedef struct s_philo
  */
 typedef struct s_data
 {
-	int						number_of_philosophers; // = number of forks
+	int						count; // = number of forks
 	int						time_to_die;
 	int						time_to_eat;
 	int						time_to_sleep;
 	int						limit_meals; // optional
-	int						running;
-	long long				ms_start;
+	int						status;
+	long long				start;
 	pthread_mutex_t			*fork;
 	pthread_mutex_t			mutex_print;
 	pthread_mutex_t			mutex_death;
-	t_philo					*philosophers;
+	t_philo					*philo;
 }	t_data;
 
-int		philo_parser(int argc, char **argv);
-int		philo_simulation(int argc, char **argv, t_data *simulation);
+int			philo_parser(int argc, char **argv);
+int			philo_sim(int argc, char **argv, t_data *simulation);
 
-void	philo_error(t_data *simulation, char *message);
-void	philo_cleanup(t_data *simulation);
+void		philo_error(t_data *simulation, char *message);
+void		philo_cleanup(t_data *simulation);
+
+// time
+long long	philo_clock(void);
 
 // utils
-size_t	philo_strlen(const char *str);
-void	philo_putstr_fd(char *s, int fd);
-void	philo_putchar_fd(char c, int fd);
-void	philo_putnbr_fd(int n, int fd);
-int		philo_atoi(const char *nptr);
+size_t		philo_strlen(const char *str);
+void		philo_putstr_fd(char *s, int fd);
+void		philo_putchar_fd(char c, int fd);
+void		philo_putnbr_fd(int n, int fd);
+int			philo_atoi(const char *nptr);
 
 #endif
