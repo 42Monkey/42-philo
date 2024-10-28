@@ -1,89 +1,103 @@
 #include "../include/philo.h"
 
 /*
- * initialize simulation parameters from arguments
+ * initialize sim parameters from arguments
+ * allocate memory for the forks
  */
-static int	init_param(int argc, char **argv, t_data *simulation)
+static int	init_param(int argc, char **argv, t_data *sim)
 {
-	simulation->number_of_philosophers = philo_atoi(argv[1]);
-	simulation->time_to_die = philo_atoi(argv[2]);
-	simulation->time_to_eat = philo_atoi(argv[3]);
-	simulation->time_to_sleep = philo_atoi(argv[4]);
-
-	// allocate memory for the forks
-	simulation->fork = malloc(sizeof(pthread_mutex_t) * simulation->number_of_philosophers);
-	if (!simulation->fork)
-		philo_error(simulation, ERROR_MALLOC);
-
+	sim->count = philo_atoi(argv[1]);
+	sim->time_to_die = philo_atoi(argv[2]);
+	sim->time_to_eat = philo_atoi(argv[3]);
+	sim->time_to_sleep = philo_atoi(argv[4]);
+	sim->fork = malloc(sizeof(pthread_mutex_t) * sim->count);
+	if (!sim->fork)
+		philo_error(sim, ERROR_MALLOC);
 	if (argc == 6)
-		simulation->limit_meals = philo_atoi(argv[5]);
+		sim->limit_meals = philo_atoi(argv[5]);
 	else
-		simulation->limit_meals = -1;
+		sim->limit_meals = -1;
 	return (0);
 }
 
 /*
  * initialize mutexes for forks, print and death
  */
-static int	init_mutexes(t_data *simulation)
+static int	init_mutexes(t_data *sim)
 {
 	int	i;
 
 	i = 0;
-	while (i < simulation->number_of_philosophers)
+	while (i < sim->count)
 	{
-		if (pthread_mutex_init(&simulation->fork[i], NULL) != 0)
-			philo_error(simulation, ERROR_MUTEX);
+		if (pthread_mutex_init(&sim->fork[i], NULL) != 0)
+			philo_error(sim, ERROR_MUTEX);
 		i++;
 	}
-	if (pthread_mutex_init(&simulation->mutex_print, NULL) != 0)
-		philo_error(simulation, ERROR_MUTEX);
-	if (pthread_mutex_init(&simulation->mutex_death, NULL) != 0)
-		philo_error(simulation, ERROR_MUTEX);
+	if (pthread_mutex_init(&sim->mutex_print, NULL) != 0)
+		philo_error(sim, ERROR_MUTEX);
+	if (pthread_mutex_init(&sim->mutex_death, NULL) != 0)
+		philo_error(sim, ERROR_MUTEX);
 	return (0);
 }
 
 /*
  * initialize philosopher structures
  */
-static int	init_philosophers(t_data *simulation)
+static int	init_philosophers(t_data *sim)
 {
 	int	i;
 
 	i = 0;
-	simulation->philosophers = (t_philo *)malloc(sizeof(t_philo) * simulation->number_of_philosophers);
-	if (!simulation->philosophers)
-		philo_error(simulation, ERROR_MALLOC);
-	while (i < simulation->number_of_philosophers)
+	sim->philo = (t_philo *)malloc(sizeof(t_philo) * sim->count);
+	if (!sim->philo)
+		philo_error(sim, ERROR_MALLOC);
+	while (i < sim->count)
 	{
-		simulation->philosophers[i].id = i + 1;
-		simulation->philosophers[i].times_eaten = 0;
-		simulation->philosophers[i].time_last_meal = 0;
-		simulation->philosophers[i].fork_left = &simulation->fork[i];
-		simulation->philosophers[i].fork_right = &simulation->fork[(i + 1) % simulation->number_of_philosophers];
-		simulation->philosophers[i].data = (struct t_data *)simulation;
+		sim->philo[i].id = i + 1;
+		sim->philo[i].times_eaten = 0;
+		sim->philo[i].time_last_meal = 0;
+		sim->philo[i].fork_left = &sim->fork[i];
+		sim->philo[i].fork_right = &sim->fork[(i + 1) % sim->count];
+		sim->philo[i].data = (struct t_data *)sim;
 		i++;
 	}
 	return (0);
 }
 
 /*
- * create threads for each philosopher
- * wait for all philosopher threads to finish
+ * create threads for each philosopher (pthread_create)
+ * wait for all philosopher threads to finish (pthread_join)
  */
-// static int	init_thread(int argc, char **argv, t_data *simulation)
-// {
-// 	// TO DO
-// }
+static int	init_thread(t_data *sim)
+{
+	int	i;
+
+	sim->status = 1;
+	sim->start = philo_clock();
+	i = 0;
+	while (i < sim->count)
+	{
+		pthread_create(&sim->philo[i].thread, NULL, routine, &sim->philo[i]);
+		i++;
+	}
+	i = 0;
+	while (i < sim->count)
+	{
+		pthread_join(sim->philo[i].thread, NULL);
+		i++;
+	}
+	return (0);
+}
 
 /*
- * initialize the entire simulation
+ * initialize the entire sim
  */
-int	philo_simulation(int argc, char **argv, t_data *simulation)
+int	philo_sim(int argc, char **argv, t_data *sim)
 {
-	init_param(argc, argv, simulation);
-	init_mutexes(simulation);
-	init_philosophers(simulation);
-	// init_thread(argc, argv, &simulation);
+	init_param(argc, argv, sim);
+	init_mutexes(sim);
+	init_philosophers(sim);
+	init_thread(sim);
 	return (0);
 }
