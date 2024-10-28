@@ -40,7 +40,7 @@ typedef struct s_philo
 	pthread_t				thread;
 	pthread_mutex_t			*fork_left;
 	pthread_mutex_t			*fork_right;
-	struct t_data			*data;
+	struct s_data			*data;
 }	t_philo;
 
 /*
@@ -70,6 +70,9 @@ int			philo_sim(int argc, char **argv, t_data *simulation);
 
 void		philo_error(t_data *simulation, char *message);
 void		philo_cleanup(t_data *simulation);
+
+// routine
+void		*philo_routine(void *arg);
 
 // time
 long long	philo_clock(void);
