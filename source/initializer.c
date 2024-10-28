@@ -59,7 +59,7 @@ static int	init_philosophers(t_data *sim)
 		sim->philo[i].time_last_meal = 0;
 		sim->philo[i].fork_left = &sim->fork[i];
 		sim->philo[i].fork_right = &sim->fork[(i + 1) % sim->count];
-		sim->philo[i].data = (struct s_data *)sim;
+		sim->philo[i].data = (struct t_data *)sim;
 		i++;
 	}
 	return (0);
@@ -78,7 +78,7 @@ static int	init_thread(t_data *sim)
 	i = 0;
 	while (i < sim->count)
 	{
-		pthread_create(&sim->philo[i].thread, NULL, philo_routine, &sim->philo[i]);
+		pthread_create(&sim->philo[i].thread, NULL, routine, &sim->philo[i]);
 		i++;
 	}
 	i = 0;

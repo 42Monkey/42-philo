@@ -19,9 +19,7 @@ RM			= rm -rf
 SRCS 		=		$(DIR_SRC)philo.c \
 					$(DIR_SRC)parser.c \
 					$(DIR_SRC)initializer.c \
-					$(DIR_SRC)utils.c \
-					$(DIR_SRC)clock.c \
-					$(DIR_SRC)routine.c
+					$(DIR_SRC)utils.c
 
 OBJS		=		$(SRCS:.c=.o)
 
