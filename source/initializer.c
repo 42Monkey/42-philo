@@ -74,7 +74,7 @@ static int	init_thread(t_data *sim)
 	int	i;
 
 	sim->status = 1;
-	sim->start = philo_clock();
+	sim->start = philo_clock(sim);
 	i = 0;
 	while (i < sim->count)
 	{
