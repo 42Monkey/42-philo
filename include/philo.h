@@ -75,7 +75,7 @@ void		philo_cleanup(t_data *simulation);
 void		*philo_routine(void *arg);
 
 // time
-long long	philo_clock(void);
+long long	philo_clock(t_data *sim);
 
 // utils
 size_t		philo_strlen(const char *str);

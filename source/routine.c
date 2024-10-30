@@ -50,7 +50,7 @@ static void	timestamp(t_data *sim, int id, char *status)
 {
 	long long	timestamp;
 
-	timestamp = philo_clock() - sim->start;
+	timestamp = philo_clock(sim);
 	printf("%lld %d %s\n", timestamp, id, status);
 }
 
@@ -70,7 +70,7 @@ void	*philo_routine(void *arg)
 	{
 		fork_on(philo);
 		timestamp(sim, philo->id, "is eating");
-		philo->time_last_meal = philo_clock();
+		philo->time_last_meal = philo_clock(sim);
 		routine_sleep(sim->time_to_eat);
 		fork_off(philo);
 		if (sim->limit_meals != -1 && philo->times_eaten >= sim->limit_meals)
